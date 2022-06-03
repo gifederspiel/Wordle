@@ -29,10 +29,25 @@
 				</div>
 			<% } %> 
 			<form class="controlls">
-				<input type="text">
-				<button>Enter</button>
+				<input type="text" name="guess" onchange="validateOnChange(this)">
+				<input type="submit" id="button" class="button" value="senden">
 			</form>
-			
+			<p id="error" class="errorMessage">Das Wort muss fünfstellig sein!</p>
 		</div>
 	</main>
 </body>
+<script>
+	function validateOnChange(input){
+		let button = document.getElementById("button")
+		let errorMessage = document.getElementById("error")
+		if(input.value.trim().length !== 5){
+			button.disabled = true;
+			error.style.visibility = "visible"
+		}
+		else{
+			button.disabled = false;
+			error.style.visibility = "hidden"
+		}
+	}    
+</script>
+</html>
