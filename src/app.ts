@@ -6,6 +6,8 @@ import indexRouter from './routers/index.router';
 import wordleGameRouter from './routers/wordleGame.router';
 import addWordRouter from './routers/addWord.router';
 import rulesRouter from './routers/rules.router'
+import winRouter from './routers/won.router';
+import instantwinRouter from './routers/instant.router';
 
 
 const app = express();
@@ -28,7 +30,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', indexRouter);
 app.use('/play', wordleGameRouter);
 app.use('/pool', addWordRouter);
-app.use('/rules', rulesRouter)
+app.use('/rules', rulesRouter);
+app.use('/won', winRouter);
+app.use('/instantwin', instantwinRouter);
 
 app.listen(port, () => {
     console.log(`Wordle listening on port ${port}`);

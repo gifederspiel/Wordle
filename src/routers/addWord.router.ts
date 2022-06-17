@@ -6,7 +6,6 @@ const prisma = new PrismaClient()
 
 router.get('/', async (req, res) => {
     let numberOfWords = await (await prisma.wort.findMany({})).length
-    console.log(numberOfWords)
     res.render('pool', {numberOfWords});
 });
 router.post('/', async (req,res) => {

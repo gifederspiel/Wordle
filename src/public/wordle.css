@@ -18,3 +18,12 @@
 	margin-top: 10%;
 	width: auto;
 }
+.full{
+	background-color: green;
+}
+.half{
+	background-color: orange;
+}
+.not{
+	background-color: rgb(167, 167, 167);
+}

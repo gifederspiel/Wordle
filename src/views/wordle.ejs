@@ -21,33 +21,78 @@
 		<div class="wordGrid" align="center">
 			<% for(let i = 1; i < 7; i++){ %>
 				<div class="row<%-i%>">
-					<p></p>
-					<p></p>
-					<p></p>
-					<p></p>
-					<p></p>
+					<p id="<%-i%>1"></p>
+					<p id="<%-i%>2"></p>
+					<p id="<%-i%>3"></p>
+					<p id="<%-i%>4"></p>
+					<p id="<%-i%>5"></p>
 				</div>
 			<% } %> 
-			<form class="controlls">
-				<input type="text" name="guess" onchange="validateOnChange(this)">
-				<input type="submit" id="button" class="button" value="senden">
-			</form>
+			<div class="controlls">
+				<input type="text" id="guess" name="guess" onchange="validateOnChange(this)">
+				<input type="submit" id="button" class="button" onclick="checkLetters()" value="senden">
+			</div>
 			<p id="error" class="errorMessage">Das Wort muss fünfstellig sein!</p>
 		</div>
-	</main>
-</body>
+	</main> 
+	<p style="display: none;" id="selectedWord"><%- wort %></p>
+</body> 
 <script>
-	function validateOnChange(input){
-		let button = document.getElementById("button")
-		let errorMessage = document.getElementById("error")
-		if(input.value.trim().length !== 5){
-			button.disabled = true;
-			error.style.visibility = "visible"
+let durchgang = 1;
+function checkLetters(){
+	let wort = document.getElementById('selectedWord').textContent;
+	const guess = document.getElementById('guess');
+	if(validateOnChange(guess)){
+		fillWord(guess, wort);
+		document.getElementById('guess').value = '';
+	}
+	
+}
+function fillWord(guess, wort){
+	if (durchgang < 7){
+		if(guess.value == "Rick Owens"){
+			window.location.href = 'instantwin'
 		}
-		else{
-			button.disabled = false;
-			error.style.visibility = "hidden"
+		if(guess.value == wort){
+
+			setTimeout(function(){
+				window.location.href = '/won'
+			}, 500);
+			
 		}
-	}    
+		for(let i = 1 ; i < 6; i++){
+			let element = String(durchgang) + String(i)
+			let currentElement = document.getElementById(element);
+			currentElement.innerHTML = guess.value[i-1]
+
+			if(guess.value[i-1] == wort[i-1]){
+				currentElement.classList.add('full');
+			}
+			else if(wort.includes(guess.value[i-1])){
+				currentElement.classList.add('half')
+			}
+			else{
+				currentElement.classList.add('not')
+			}
+
+		}
+		durchgang++
+	}
+	
+}
+function validateOnChange(input){
+	let button = document.getElementById("button")
+	let errorMessage = document.getElementById("error")
+	if(input.value !== "Rick Owens" && input.value.trim().length !== 5){
+		button.disabled = true;
+		error.style.visibility = "visible"
+		return false
+	}
+	else{
+		button.disabled = false;
+		error.style.visibility = "hidden"
+		return true
+	}
+}    
 </script>
 </html>
