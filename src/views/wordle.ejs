@@ -32,7 +32,9 @@
 				<input type="text" id="guess" name="guess" onchange="validateOnChange(this)">
 				<input type="submit" id="button" class="button" onclick="checkLetters()" value="senden">
 			</div>
+
 			<p id="error" class="errorMessage">Das Wort muss fünfstellig sein!</p>
+			<button class="button" onclick="window.location.href = '/play'">Neues Spiel</button>
 		</div>
 	</main> 
 	<p style="display: none;" id="selectedWord"><%- wort %></p>
@@ -40,6 +42,9 @@
 <script>
 let durchgang = 1;
 function checkLetters(){
+	if(durchgang == 7){
+		showFailScreen();
+	}
 	let wort = document.getElementById('selectedWord').textContent;
 	const guess = document.getElementById('guess');
 	if(validateOnChange(guess)){
@@ -54,11 +59,9 @@ function fillWord(guess, wort){
 			window.location.href = 'instantwin'
 		}
 		if(guess.value == wort){
-
 			setTimeout(function(){
 				window.location.href = '/won'
-			}, 500);
-			
+			}, 500);	
 		}
 		for(let i = 1 ; i < 6; i++){
 			let element = String(durchgang) + String(i)
@@ -74,11 +77,24 @@ function fillWord(guess, wort){
 			else{
 				currentElement.classList.add('not')
 			}
-
 		}
 		durchgang++
 	}
+	else if(guess.value == wort){
+		setTimeout(function(){
+			window.location.href = '/won'
+		}, 500);	
+	}
+	else{
+		showFailScreen();
+	}
+
 	
+}
+function showFailScreen(){
+	if(durchgang > 6){
+		window.location.href = '/fail'
+	}
 }
 function validateOnChange(input){
 	let button = document.getElementById("button")

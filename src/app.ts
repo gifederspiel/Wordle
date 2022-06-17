@@ -8,7 +8,7 @@ import addWordRouter from './routers/addWord.router';
 import rulesRouter from './routers/rules.router'
 import winRouter from './routers/won.router';
 import instantwinRouter from './routers/instant.router';
-
+import failRouter from './routers/fail.router'
 
 const app = express();
 const port: number = Number(process.env.PORT) || 3000;
@@ -33,6 +33,7 @@ app.use('/pool', addWordRouter);
 app.use('/rules', rulesRouter);
 app.use('/won', winRouter);
 app.use('/instantwin', instantwinRouter);
+app.use('/fail', failRouter)
 
 app.listen(port, () => {
     console.log(`Wordle listening on port ${port}`);
